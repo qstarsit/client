@@ -7,7 +7,7 @@ import (
 )
 
 type Client struct {
-	serverAddress string
+	ServerAddress string
 }
 
 func (c *Client) Connect() *websocket.Conn {
