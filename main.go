@@ -10,8 +10,9 @@ type Client struct {
 	ServerAddress string
 }
 
+// Connect Establishes a WebSocket connection to the server and returns the connection object.
 func (c *Client) Connect() *websocket.Conn {
-	conn, response, err := websocket.DefaultDialer.Dial(c.serverAddress, nil)
+	conn, response, err := websocket.DefaultDialer.Dial(c.ServerAddress, nil)
 	if err != nil {
 		fmt.Printf("Failed to connect to WebSocket: %v", err)
 	}
@@ -36,6 +37,7 @@ func (c *Client) Connect() *websocket.Conn {
 	return conn
 }
 
+// SendMessage Sends a text message over the WebSocket connection.
 func (c *Client) SendMessage(conn *websocket.Conn, message string) {
 	err := conn.WriteMessage(websocket.TextMessage, []byte(message))
 	if err != nil {
@@ -43,6 +45,7 @@ func (c *Client) SendMessage(conn *websocket.Conn, message string) {
 	}
 }
 
+// ReadMessage Reads a text message from the WebSocket connection.
 func (c *Client) ReadMessage(conn *websocket.Conn) (string, error) {
 	messageType, message, err := conn.ReadMessage()
 	if err != nil {
