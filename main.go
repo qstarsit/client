@@ -17,18 +17,6 @@ func (c *Client) Connect() *websocket.Conn {
 		fmt.Printf("Failed to connect to WebSocket: %v", err)
 	}
 
-	/*
-		You can only defer a function.
-		conn.Close returns an error
-		so we wrap it in a function
-	*/
-	defer func(conn *websocket.Conn) {
-		err := conn.Close()
-		if err != nil {
-			fmt.Printf("Error closing connection: %v", err)
-		}
-	}(conn)
-
 	// Check if the response status is 101 (Switching Protocols)
 	if response.StatusCode != 101 {
 		fmt.Printf("Unexpected response status: %d\n", response.StatusCode)
