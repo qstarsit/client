@@ -47,3 +47,20 @@ func (c *Client) ReadMessage(conn *websocket.Conn) (string, error) {
 
 	return string(message), nil
 }
+
+// StartReading Continuously reads messages from the WebSocket connection in a goroutine.
+// Calls the provided callback function for each message received.
+func (c *Client) StartReading(conn *websocket.Conn, onMessage func(string)) {
+	go func() {
+		for {
+			msg, err := c.ReadMessage(conn)
+			if err != nil {
+				fmt.Printf("Read error: %v\n", err)
+				break
+			}
+			if onMessage != nil {
+				onMessage(msg)
+			}
+		}
+	}()
+}

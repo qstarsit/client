@@ -1,6 +1,6 @@
 //go:build ignore
 
-package client
+package main
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	url := "ws://localhost:8080/ws"
+	url := "wss://gopher.arcetta.dev"
 	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
 	if err != nil {
 		log.Fatalf("Failed to connect to WebSocket: %v", err)
